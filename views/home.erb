@@ -1,0 +1,13 @@
+<h1>Hello</h1>
+<div> <%= @game %> </div>
+
+<div>
+  <h1> <%= @last_card %></h1>
+</div>
+
+  <form action="/select_square" method="post" enctype="multipart/form-data">
+    <input type="text" name="square_num" value="">
+    <button type="submit" name="button">submit</button>
+  </form>
+
+<a href="/start">RESTART</a>
