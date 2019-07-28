@@ -3,16 +3,16 @@ require 'pry'
 class Cards
   attr_reader :deck
 
-  def initialize
-    @deck = create_cards
+  def initialize(selected_num)
+    @deck = create_cards(selected_num)
   end
 
-  def create_cards
+  def create_cards(choice)
     deck = []
-    puts "Choose an option => 1: Basic cards  -  2: Custom cards"
-    choice = gets.chomp.to_i
+    # puts "Choose an option => 1: Basic cards  -  2: Custom cards"
+    # choice = gets.chomp.to_i
 
-    if choice == 1
+    if choice == '1'
       ['num', 'special', 'special2', 'typhoon'].each do |type|
         deck << select_cards(type)
       end
@@ -105,8 +105,8 @@ end
 
 class Board
   attr_reader :squares
-  def initialize
-    @cards = Cards.new.deck
+  def initialize(selected_num)
+    @cards = Cards.new(selected_num).deck
     @squares = create_board
   end
 
@@ -159,8 +159,8 @@ end
 class Game
   attr_reader :started, :board, :last_selected_card
 
-  def initialize
-    @board = Board.new
+  def initialize(selected_num = '1')
+    @board = Board.new(selected_num)
     @started = "\nRUNNING\n\n"
   end
 
@@ -173,6 +173,7 @@ class Game
     @last_selected_card = @board.choose_square(num)
   end
 end
+
 #
 # game = Game.new
 # p game.board.display

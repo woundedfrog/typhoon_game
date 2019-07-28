@@ -14,14 +14,18 @@ end
 
 # GAME = start_game
 
-def start_game
-   game = Game.new
-  @board = game
-end
+# def start_game
+#   # selected_option = params[:option_number]
+#   #  game = Game.new(selected_option)
+#   # @board = game
+#   erb :new_game
+# end
 
 get '/start' do
-  GAME = start_game
-  redirect '/'
+  # GAME = start_game
+
+  erb :new_game
+  # redirect '/'
 end
 
 get '/' do
@@ -35,4 +39,12 @@ post '/select_square' do
 # binding.pry
   GAME.select_card(params[:square_num].to_i - 1)
   redirect '/'
+end
+
+
+post '/create_new_game' do
+    selected_option = params[:option_number].to_s
+     game = Game.new(selected_option)
+     GAME = game
+     redirect '/'
 end

@@ -1,0 +1,17 @@
+.board {
+  width: 75%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.cards {
+  flex: 1 0 19%;
+  margin 5px;
+
+}
+.card_imgs {
+  width: 200PX;
+height: 200PX;
+}
