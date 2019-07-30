@@ -104,8 +104,9 @@ class Cards
 end
 
 class Board
-  attr_reader :squares
+  attr_reader :squares, :current_board
   def initialize(selected_num)
+    @current_board = (1..25).to_a
     @cards = Cards.new(selected_num).deck
     @squares = create_board
   end
@@ -118,6 +119,10 @@ class Board
     squares
   end
 
+  def update_current_game_board(sqr, input)
+    @current_board[input] = sqr
+  end
+
   def choose_square(input)
     # puts "Select a card from 1-25"
     # input = gets.chomp.to_i - 1
@@ -126,7 +131,7 @@ class Board
     #   choose_square
     # end
     value = get_value_from_square(input)
-    remove_square(input)
+    # remove_square(input)
     value
   end
 
@@ -134,11 +139,21 @@ class Board
 private
 
   def get_value_from_square(sqr_num)
-    squares[sqr_num]
+    # squares[sqr_num]
+    loop do
+      value = squares.shuffle![-1]
+      if value == 'typhoon' && squares.size > 13
+        value = squares.shuffle![-1].pop
+        return value
+      else
+        value = squares.pop
+        return value
+      end
+    end
   end
 
   def remove_square(sqr_num)
-    @squares[sqr_num] = 'empty'
+    # @squares[sqr_num] = 'empty'
   end
 
   def create_empty_board
@@ -171,11 +186,13 @@ class Game
 
   def select_card(num)
     @last_selected_card = @board.choose_square(num)
+    @board.update_current_game_board(@last_selected_card, num)
   end
 end
 
 #
 # game = Game.new
+# binding.pry
 # p game.board.display
 # game.play
 # p game.board.display

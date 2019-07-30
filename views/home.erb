@@ -1,15 +1,30 @@
-<h1>Hello</h1>
-<div> <%= @game %> </div>
+<!-- <h1>Hello</h1> -->
+<!-- <div> <%= @game %> </div> -->
 
-<div>
-  <h1> <%= @last_card %></h1>
+<div id="shadow_window" class="hidden">
+
+</div>
+<div id="locator">
+    <h1 id="last-card" class="hidden"><%= @last_card %></h1>
 </div>
 
 
 <div class="board">
-  <% 1.upto(25) do |num| %>
-    <div class="cards card_<%= num %>">
-      <img class="card_imgs" src="./images/typhoon_bg.png" alt="card_<%= num %>">
+  <% @current_board.each do |square_n| %>
+    <div class="cards card_<%= square_n %>">
+
+       <% if (1..25).to_a.include?(square_n.to_i) %>
+          <form action="/select_square/<%= square_n %>" method="post">
+                <INPUT class="card_imgs card_<%= square_n %>_cover" TYPE="image" src="./images/typhoon_bg.png" VALUE="<%= square_n %>" ALT="Submit now">
+           </form>
+       <% else %>
+
+         <% if square_n.to_i.to_s == square_n %>
+            <p class="card_imgs number_values card_<%= square_n %>_actual"><%= square_n%></p>
+          <% else %>
+            <img class="card_imgs card_<%= square_n %>_actual" src="./images/<%=square_n%>.jpg" alt="<%=square_n%> card_<%= square_n %>">
+          <% end %>
+      <% end %>
     </div>
   <% end %>
 

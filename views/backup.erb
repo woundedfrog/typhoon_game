@@ -1,0 +1,56 @@
+<!-- <h1>Hello</h1> -->
+<!-- <div> <%= @game %> </div> -->
+
+<div id="shadow_window" class="hidden">
+
+</div>
+<div id="locator">
+    <h1> <%= @last_card %></h1>
+</div>
+
+ <div class="board">
+  <% @game.each_with_index do |value, idx| %>
+    <div class="cards card_<%= idx %>">
+      <% if test_if_num(value) %>
+        <img class="card_imgs card_<%= idx %>_cover" src="./images/typhoon_bg.png" alt="<%=value%> card_<%= idx %>" onclick="switchCard('number', 'card_<%= idx %>')">
+
+        <p class="card_imgs number_values card_<%= idx %>_actual hidden"><%= value%></p>
+      <% else %>
+        <img class="card_imgs card_<%= idx %>_cover" src="./images/typhoon_bg.png" alt="<%=value%> card_<%= idx %>" onclick="switchCard('special', 'card_<%= idx %>')">
+        <img class="card_imgs card_<%= idx %>_actual hidden" src="./images/<%=value%>.jpg" alt="<%=value%> card_<%= idx %>">
+      <% end %>
+    </div>
+  <% end %>
+
+</div>
+
+
+<div class="board">
+  <% 0.upto(24) do |square_n| %>
+    <div class="cards card_<%= square_n %>">
+
+  <form action="/select_square" method="post">
+      <INPUT class="card_imgs card_<%= square_n %>_cover" TYPE="image" src="./images/typhoon_bg.png" VALUE="<%= square_n %> ALT="Submit now" NAME="square_num">
+</form>
+    <!-- <button type="button" name="submit">
+      <img class="card_imgs card_<%= square_n %>_cover" src="./images/typhoon_bg.png" alt="<%=square_n%> card_<%= square_n %>" onclick="switchCard('number', 'card_<%= square_n %>')">
+</button> -->
+    <img class="" src="./images/<%= get_value_for_square(square_n) %>.jpg">
+    <p class="card_imgs number_values card_<%= square_n %>_actual hidden"><%= square_n%></p>
+
+    <img class="card_imgs card_<%= square_n %>_actual hidden" src="./images/<%=square_n%>.jpg" alt="<%=square_n%> card_<%= square_n %>">
+
+
+    </div>
+  <% end %>
+
+</div>
+
+
+
+  <form action="/select_square" method="post" enctype="multipart/form-data">
+    <input type="text" name="square_num" value="">
+    <button type="submit" name="button">submit</button>
+  </form>
+
+<a href="/start">RESTART</a>

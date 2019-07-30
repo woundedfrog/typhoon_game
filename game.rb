@@ -21,6 +21,19 @@ end
 #   erb :new_game
 # end
 
+helpers do
+  def test_if_num(value)
+    return true if value.to_i.to_s == value
+  end
+
+  def get_value_for_square(square_n)
+
+    selected = GAME.select_card(square_n)
+    @last_card = GAME.last_selected_card
+    selected
+  end
+end
+
 get '/start' do
   # GAME = start_game
 
@@ -31,13 +44,18 @@ end
 get '/' do
   redirect '/start' unless defined? GAME
   @game = GAME.board.display
-  @last_card = GAME.last_selected_card
+  last = GAME.last_selected_card
+  @last_card = last.nil? ? 'typhoon_bg' : last
+  @current_board = GAME.board.current_board
   erb :home
 end
 
-post '/select_square' do
-# binding.pry
-  GAME.select_card(params[:square_num].to_i - 1)
+post '/select_square/:square' do
+
+  GAME.select_card(params[:square].to_i - 1)
+  # binding.pry
+  @last_card = GAME.last_selected_card
+
   redirect '/'
 end
 
