@@ -95,7 +95,7 @@ class Cards
   end
 
   def card_types
-    special = ['shinobi', 'shinobi-half', 'shinobi', 'bomb', 'present bomb', 'present bomb', 'safe', 'safe']
+    special = ['shinobi', 'shinobi-half', 'shinobi', 'bomb', 'present-bomb', 'present-bomb', 'safe', 'safe']
     numbers = [100, 140, 250, 120, 50, 200, 70, -10, -30, 140, 200]
     typhoon = ['typhoon']
     special2 = ['chance', 'chance', 'time-trial', 'time-trial', 'restore']
@@ -143,7 +143,8 @@ private
     loop do
       value = squares.shuffle![-1]
       if value == 'typhoon' && squares.size > 13
-        value = squares.shuffle![-1].pop
+
+        value = squares.shift
         return value
       else
         value = squares.pop
